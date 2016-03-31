@@ -1,5 +1,7 @@
 package batch;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -106,9 +108,11 @@ public class TuntikirjausHandler {
 				String kirjaajaSukunimi;
 				int tunnit;
 								
-				//String hlo_id = "0";
-				Date hlo_pvm = null;
-				
+				String hlo_id = "0";
+				Date pvm = new Date();
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String hlo_pvm = dateFormat.format(pvm);
+				System.out.println(hlo_pvm);
 				System.out.println("Anna kirjaajan etunimi");
 				input.nextLine();
 				kirjaajaEtunimi = input.nextLine();
@@ -120,7 +124,7 @@ public class TuntikirjausHandler {
 				System.out.println("Montako tuntia tuli tehtyä?");
 				tunnit = input.nextInt();
 								
-				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(kirjaajaEtunimi, kirjaajaSukunimi, tunnit, hlo_pvm);
+				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(0, kirjaajaEtunimi, kirjaajaSukunimi, tunnit, hlo_pvm);
 				tuntikirjausDao.talleta(uusiTuntikirjaus);
 				
 //				INSERT INTO henkilo(hlo_id, hlo_etunimi, hlo_sukunimi, hlo_tunnit)
