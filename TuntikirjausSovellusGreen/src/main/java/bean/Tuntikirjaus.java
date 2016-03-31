@@ -1,17 +1,19 @@
 package bean;
 
+import java.util.Date;
+
 public class Tuntikirjaus {
 	
 	private String tuntikirjaus_id;
 	private String hlo_tunnus;
 	private String selite;
 	private int tuntimaara;
-	private String pvm;
+	private Date pvm;
 
 	public Tuntikirjaus(){
 	}
 	
-	public Tuntikirjaus(String hlo_tunnus, String selite, int tuntimaara) {
+	public Tuntikirjaus(String hlo_tunnus, String selite, int tuntimaara, Date pvm) {
 		super();
 		this.tuntikirjaus_id = "0";
 		this.hlo_tunnus = hlo_tunnus;
@@ -51,11 +53,11 @@ public class Tuntikirjaus {
 		this.tuntimaara = tuntimaara;
 	}
 
-	public String getPvm() {
+	public Date getPvm() {
 		return pvm;
 	}
 
-	public void setPvm(String pvm) {
+	public void setPvm(Date pvm) {
 		this.pvm = pvm;
 	}
 	

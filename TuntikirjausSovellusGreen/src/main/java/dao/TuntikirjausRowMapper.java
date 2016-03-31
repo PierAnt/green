@@ -15,7 +15,7 @@ public class TuntikirjausRowMapper implements RowMapper<Tuntikirjaus> {
 		tk.setHlo_tunnus(rs.getString("hlo_tunnus"));
 		tk.setSelite(rs.getString("selite"));
 		tk.setTuntimaara(rs.getInt("tuntimaara"));
-		tk.setPvm(rs.getString("pvm"));
+		tk.setPvm(rs.getDate("pvm"));
 		return tk;
 	}
 }
