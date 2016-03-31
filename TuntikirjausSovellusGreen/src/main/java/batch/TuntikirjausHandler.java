@@ -1,5 +1,6 @@
 package batch;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -71,6 +72,7 @@ public class TuntikirjausHandler {
 				System.out.println("Lisää henkilö tuntiseurattavien piiriin");
 				System.out.println("-------------------");
 				
+				int tunnus = 0;
 				String etunimi;
 				String sukunimi;
 				
@@ -80,7 +82,7 @@ public class TuntikirjausHandler {
 				System.out.print("Anna sukunimi:");
 				sukunimi = input.nextLine();
 				System.out.println("");
-				Henkilo henkilo = new Henkilo(etunimi, sukunimi);
+				Henkilo henkilo = new Henkilo(tunnus, etunimi, sukunimi);
 				henkiloDao.talleta(henkilo);
 				
 				break;
@@ -104,8 +106,8 @@ public class TuntikirjausHandler {
 				String kirjaajaSukunimi;
 				int tunnit;
 								
-				String hlo_id = "0";
-				String hlo_pvm = "";
+				//String hlo_id = "0";
+				Date hlo_pvm = null;
 				
 				System.out.println("Anna kirjaajan etunimi");
 				input.nextLine();
@@ -118,7 +120,7 @@ public class TuntikirjausHandler {
 				System.out.println("Montako tuntia tuli tehtyä?");
 				tunnit = input.nextInt();
 								
-				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(kirjaajaEtunimi, kirjaajaSukunimi, tunnit);
+				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(kirjaajaEtunimi, kirjaajaSukunimi, tunnit, hlo_pvm);
 				tuntikirjausDao.talleta(uusiTuntikirjaus);
 				
 //				INSERT INTO henkilo(hlo_id, hlo_etunimi, hlo_sukunimi, hlo_tunnit)
