@@ -36,15 +36,14 @@ public class TuntikirjausHandler {
 		while (ajetaan) {
 			int valinta;
 			
-			System.out.println("Käyttäjä: " + kayttaja.toString());
+			//System.out.println("Käyttäjä: " + kayttaja.toString());
 			
-			System.out.println("Vaihtoehdot:\n"
+			System.out.println("\nVaihtoehdot:\n"
 					+ "1. Näytä kaikki henkilöt\n"
 					+ "2. Valitse henkilö jona haluat tehdä kirjauksen (Ei vielä käytössä)\n"
-					+ "3. Lisää henkilö tuntiseurattavien piiriin (Testikäytössä - muuttuu epävakaammaksi jokaisella lisäyksellä tauluun,\n"
-					+ "koska hlo_tunnus muodostuu satunnaisnumerosta 0-10000 ja saman arpoutuminen kaataa ohjelman)\n"
+					+ "3. Lisää henkilö tuntiseurattavien piiriin\n"
 					+ "4. Näytä kaikki tuntikirjaukset\n"
-					+ "5. Tee tuntikirjaus (Ei vielä käytössä)\n"
+					+ "5. Tee tuntikirjaus\n"
 					+ "6. Poistu\n"
 					
 					+ "Valinta: ");
@@ -56,7 +55,7 @@ public class TuntikirjausHandler {
 			case 1:
 				System.out.println("-------------------");
 				System.out.println("LISTATAAN KAIKKI HENKILÖT");
-				System.out.println("-------------------");
+				System.out.println("-------------------\n");
 				
 				List<Henkilo> henkilot = henkiloDao.haeHenkilot();
 				for (Henkilo h : henkilot) {
@@ -72,7 +71,7 @@ public class TuntikirjausHandler {
 			case 3:
 				System.out.println("-------------------");
 				System.out.println("Lisää henkilö tuntiseurattavien piiriin");
-				System.out.println("-------------------");
+				System.out.println("-------------------\n");
 				
 				int tunnus = 0;
 				String etunimi;
@@ -92,7 +91,7 @@ public class TuntikirjausHandler {
 			case 4:
 				System.out.println("-------------------");
 				System.out.println("LISTATAAN KAIKKI TUNTIKIRJAUKSET");
-				System.out.println("-------------------");
+				System.out.println("-------------------\n");
 				
 				List<Tuntikirjaus> tuntikirjaukset= tuntikirjausDao.haeKaikki();
 				for (Tuntikirjaus tk : tuntikirjaukset) {
@@ -104,31 +103,28 @@ public class TuntikirjausHandler {
 				}
 				break;			
 			case 5:
-				String kirjaajaEtunimi;
-				String kirjaajaSukunimi;
+				int kirjaajaHlo_tunnus;
+				String selite;
 				int tunnit;
 								
-				String hlo_id = "0";
 				Date pvm = new Date();
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String hlo_pvm = dateFormat.format(pvm);
 				System.out.println(hlo_pvm);
-				System.out.println("Anna kirjaajan etunimi");
+				
+				System.out.println("Anna kirjaajan hlo_tunnus");
 				input.nextLine();
-				kirjaajaEtunimi = input.nextLine();
+				kirjaajaHlo_tunnus = input.nextInt();
 				
-				
-				System.out.println("Anna kirjaajan sukunimi");
-				kirjaajaSukunimi = input.nextLine();
+				System.out.println("Anna kirjaukseen liittyvä selite");
+				input.nextLine();
+				selite = input.nextLine();
 								
 				System.out.println("Montako tuntia tuli tehtyä?");
 				tunnit = input.nextInt();
 								
-				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(0, kirjaajaEtunimi, kirjaajaSukunimi, tunnit, hlo_pvm);
+				Tuntikirjaus uusiTuntikirjaus = new Tuntikirjaus(0, kirjaajaHlo_tunnus, selite, tunnit, hlo_pvm);
 				tuntikirjausDao.talleta(uusiTuntikirjaus);
-				
-//				INSERT INTO henkilo(hlo_id, hlo_etunimi, hlo_sukunimi, hlo_tunnit)
-//				VALUES ('0','Sven','Jorgenseen',11);
 								
 				break;			
 			case 6:
