@@ -13,7 +13,7 @@ public class HenkiloRowMapper implements RowMapper<Henkilo> {
 //		System.out.println("public Henkilo mapRow() luokassa HenkiloRowMapper.java aloitettu.");
 		
 		Henkilo h = new Henkilo();
-		h.setHlo_tunnus(rs.getString("hlo_tunnus"));
+		h.setHlo_tunnus(rs.getInt("hlo_tunnus"));
 		h.setHlo_etunimi(rs.getString("hlo_etunimi"));
 		h.setHlo_sukunimi(rs.getString("hlo_sukunimi"));
 	
