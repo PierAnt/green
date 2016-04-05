@@ -30,7 +30,7 @@ public class HenkiloDAOSpringJdbcImpl  implements HenkiloDAO {
 	}
 
 	public Henkilo etsi(int hlo_tunnus) {
-		String sql = "select hlo_tunnus, hlo_etunimi, hlo_sukunimi from henkilo where henkilo_tunnus = ?";
+		String sql = "select hlo_tunnus, hlo_etunimi, hlo_sukunimi from henkilo where hlo_tunnus = ?";
 		Object[] parametrit = new Object[] { hlo_tunnus };   // Tällä rivillä on tod.näk. vikaa. --- Oletan että kohdassa { hlo_tunnus };
 		RowMapper<Henkilo> mapper = new HenkiloRowMapper();
 		Henkilo henkilo = jdbcTemplate.queryForObject(sql, parametrit, mapper);
