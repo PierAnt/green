@@ -16,7 +16,11 @@ public class HenkiloRowMapper implements RowMapper<Henkilo> {
 		h.setHlo_tunnus(rs.getInt("hlo_tunnus"));
 		h.setHlo_etunimi(rs.getString("hlo_etunimi"));
 		h.setHlo_sukunimi(rs.getString("hlo_sukunimi"));
-	
+//		Kun otat nämä käyttöön, huomio niiden järjestys samaksi missä ne esiintyy tietokantataulussa (sillä saattaa olla merkitystä).
+		h.setHlo_k_tunnus(rs.getString("hlo_k_tunnus"));
+		h.setHlo_k_salasana(rs.getString("hlo_k_salasana"));
+		h.setHlo_k_oikeudet(rs.getInt("hlo_k_oikeudet"));
+		
 		return h;
 	}
 	
