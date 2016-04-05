@@ -19,24 +19,18 @@ public class TuntikirjausHandler {
 	
 	public static void main(String[] args) {
 		
-//		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   | hlo_id | hlo_etunimi | hlo_sukunimi | hlo_tunnit | hlo_pvm             |!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-	
 		TuntikirjausDAO tuntikirjausDao = (TuntikirjausDAO)context.getBean("tuntikirjausDaoLuokka");
 		HenkiloDAO henkiloDao = (HenkiloDAO)context.getBean("henkiloDaoLuokka");
 	
 		Scanner input = new Scanner(System.in);
-		Kayttaja kayttaja = new Kayttaja();
-		
+		Kayttaja kayttaja;
+		Henkilo henkilo;
 		
 		boolean ajetaan = true;
 
-		
 		while (ajetaan) {
-			int valinta;
-			
-			//System.out.println("Käyttäjä: " + kayttaja.toString());
+			int valinta;			
 			
 			System.out.println("\nVaihtoehdot:\n"
 					+ "1. Näytä kaikki henkilöt\n"
@@ -52,6 +46,20 @@ public class TuntikirjausHandler {
 			
 			switch (valinta)
 			{
+			
+			//Login
+			case 0:
+				henkilo  = henkiloDao.etsi(1);
+				kayttaja = new Kayttaja(henkilo.getHlo_tunnus(), henkilo.getHlo_etunimi(), henkilo.getHlo_sukunimi());
+				
+				
+				System.out.println(henkilo);
+				System.out.println(kayttaja);
+				
+				
+				break;
+			
+			//Listataan kaikki henkilöt
 			case 1:
 				System.out.println("-------------------");
 				System.out.println("LISTATAAN KAIKKI HENKILÖT");
@@ -65,9 +73,11 @@ public class TuntikirjausHandler {
 				}
 				break;
 			
+			//Valitse henkilo jona haluat tehdä kirjauksen
 			case 2:
 				break;
 			
+			//Lisää henkilö tuntiseurattavien piiriin
 			case 3:
 				System.out.println("-------------------");
 				System.out.println("Lisää henkilö tuntiseurattavien piiriin");
@@ -83,11 +93,12 @@ public class TuntikirjausHandler {
 				System.out.print("Anna sukunimi:");
 				sukunimi = input.nextLine();
 				System.out.println("");
-				Henkilo henkilo = new Henkilo(tunnus, etunimi, sukunimi);
+				henkilo = new Henkilo(tunnus, etunimi, sukunimi);
 				henkiloDao.talleta(henkilo);
 				
 				break;
-				
+			
+			//Näytä kaikki tuntikirjaukset
 			case 4:
 				System.out.println("-------------------");
 				System.out.println("LISTATAAN KAIKKI TUNTIKIRJAUKSET");
@@ -102,6 +113,8 @@ public class TuntikirjausHandler {
 					System.out.println("Paivamaara jolloin tyo tehtiin : " + tk.getPvm() + "\n");
 				}
 				break;			
+			
+			//Tee tuntikirjaus
 			case 5:
 				int kirjaajaHlo_tunnus;
 				String selite;
@@ -127,6 +140,8 @@ public class TuntikirjausHandler {
 				tuntikirjausDao.talleta(uusiTuntikirjaus);
 								
 				break;			
+			
+			//Poistu   ---  (Lopulta tähän tulee Logout toiminto, joka kirjaa käyttäjän ulos ja palaa login näkymään.)
 			case 6:
 				ajetaan = false;
 				break;

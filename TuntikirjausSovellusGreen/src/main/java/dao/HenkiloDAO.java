@@ -6,6 +6,8 @@ import bean.Henkilo;
 public interface HenkiloDAO {
 
 	public abstract void talleta(Henkilo henkilo);
+	
+	public abstract Henkilo etsi(int hlo_tunnus);
 
 	public abstract List<Henkilo> haeHenkilot();
 
