@@ -38,34 +38,36 @@ public class TuntikirjausHandler {
 		int  hlo_k_oikeudet;
 		int hlo_tunnus;
 		int tunnit;
+		int valinta;
 		
 		boolean ajetaan = true;
 
 		while (ajetaan) {
-			int valinta;			
+						
 			
 			if (kayttaja != null){
-				System.out.println("\nVaihtoehdot käyttäjälle " + kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + "\n");}
+				System.out.println("\nKäyttäjä on kirjautunut nimellä " + kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + ".");}
 			else{
-				System.out.println("\nVaihtoehdot:\n");
+				System.out.println("\nKäyttäjä ei ole kirjautunut.");
 			}
-					
+
+			System.out.println("\nVaihtoehdot:\n");
 			System.out.println("" 
-					+ "0. Kirjaudu sisään 					TOIMII\n"
-					+ "1. Näytä kaikki henkilöt 				TOIMII\n"
-					+ "2. Muokkaa henkilöä (admin) 				(Ei vielä käytössä)\n"
-					+ "3. Tee oma tuntikirjaus 				TOIMII\n"
-					+ "4. Lisää henkilö tuntiseurattavien piiriin (admin)	TOIMII\n"
-					+ "5. Näytä omat tuntikirjaukset 				TOIMII\n"
-					+ "6. Näytä kaikki tuntikirjaukset (admin)			TOIMII\n"
-					+ "7. Tee tuntikirjaus kenelle tahansa (admin) 		TOIMII\n"
-					+ "8. Kirjaudu ulos					TOIMII\n"
-					+ "9. Sulje ohjelma					TOIMII\n\n"
+					+ "	0. Kirjaudu sisään 					TOIMII\n"
+					+ "	1. Näytä kaikki henkilöt 				TOIMII\n"
+					+ "	2. Muokkaa henkilöä (admin) 				TOIMII\n"
+					+ "	3. Tee oma tuntikirjaus 				TOIMII\n"
+					+ "	4. Lisää henkilö tuntiseurattavien piiriin (admin)	TOIMII\n"
+					+ "	5. Näytä omat tuntikirjaukset 				TOIMII\n"
+					+ "	6. Näytä kaikki tuntikirjaukset (admin)			TOIMII\n"
+					+ "	7. Tee tuntikirjaus kenelle tahansa (admin) 		TOIMII\n"
+					+ "	8. Kirjaudu ulos					TOIMII\n"
+					+ "	9. Sulje ohjelma					TOIMII\n\n"
 					
 					+ "Valinta: ");
 			
 			valinta = input.nextInt();
-			
+			System.out.println();
 			switch (valinta)
 			{
 			
@@ -74,18 +76,18 @@ public class TuntikirjausHandler {
 			case 0:
 				System.out.println("Anna hlo_tunnus: ");
 				hlo_tunnus = input.nextInt();
-				henkilo  = henkiloDao.etsi(hlo_tunnus);
+				henkilo = henkiloDao.etsi(hlo_tunnus);
 				input.nextLine();
-				System.out.println("Anna salasana: ");
+				System.out.println("\nAnna salasana: ");
 				salasanaSyotetty = input.nextLine();			
 				hlo_k_salasana = henkiloDao.haeHlo_k_salasana(hlo_tunnus);
 							
 				if (salasanaSyotetty.matches(hlo_k_salasana)){
 					kayttaja = new Kayttaja(henkilo.getHlo_tunnus(), henkilo.getHlo_etunimi(), henkilo.getHlo_sukunimi(), henkilo.getHlo_k_tunnus(), henkilo.getHlo_k_oikeudet());
-					System.out.println("Tervetuloa " + kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + ".");
+					System.out.println("\nTervetuloa " + kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + ".");
 				}
 				else {
-					System.out.println("Käyttäjätunnus tai salasana virheellinen!");
+					System.out.println("\nKäyttäjätunnus tai salasana virheellinen!");
 					System.out.println("Unohditko salasanasi?");
 				}
 				break;
@@ -103,45 +105,92 @@ public class TuntikirjausHandler {
 							+ "		Henkilon etunimi: " + h.getHlo_etunimi() 
 							+ "		Henkilon sukunimi: " + h.getHlo_sukunimi());
 				}
-				System.out.println();
 				break;
 			
 			//Muokkaa henkilöä (admin)
 			case 2:
-				System.out.println("Tähän tulee toiminnallisuus jossa admin käyttäjä voi muokata minkä tahansa henkilön ominaisuuksia");
-				System.out.println("Toiminnallisuudet jotka tänne pitää saada:");
-				System.out.println("1.Valitse muokattava henkilö.");
-				System.out.println("2.Vaihda henkilön etunimi");
-				System.out.println("3.Vaihda henkilön sukunimi");
-				System.out.println("4.Vaihda hlo_k_tunnus");
-				System.out.println("5.Vaihda hlo_k_salasana");
-				System.out.println("6.Vaihda hlo_k_oikeudet");
-				
+//				
 				if (kayttaja != null && kayttaja.getHlo_k_oikeudet() >= 1){
-					do{
+					Henkilo muokattavaHenkilo = new Henkilo();
+					Henkilo korvaavaHenkilo = new Henkilo();
+					do{	System.out.println("");
+						System.out.println("	1.Valitse muokattava henkilö.");
+						System.out.println("	2.Vaihda henkilön etunimi");
+						System.out.println("	3.Vaihda henkilön sukunimi");
+						System.out.println("	4.Vaihda hlo_k_tunnus");
+						System.out.println("	5.Vaihda hlo_k_salasana");
+						System.out.println("	6.Vaihda hlo_k_oikeudet");
+						System.out.println("	7.Tallenna muutokset");
+						System.out.println("	8.Poistu henkilön tietojen muokkauksesta\n");
+
+						System.out.println("Valinta:");
+						valinta = input.nextInt();
+						System.out.println();
+						
 						switch (valinta){
 						case 1:
 							System.out.println("Anna henkilön hlo_tunnus jota haluat muokata: ");
+							int muokattavanHlo_tunnus;
+							muokattavanHlo_tunnus = input.nextInt();
+							System.out.println();
+							muokattavaHenkilo = henkiloDao.etsi(muokattavanHlo_tunnus);
+							korvaavaHenkilo = new Henkilo(muokattavaHenkilo.getHlo_tunnus(), muokattavaHenkilo.getHlo_etunimi(), muokattavaHenkilo.getHlo_sukunimi(), muokattavaHenkilo.getHlo_k_tunnus(), muokattavaHenkilo.getHlo_k_salasana(), muokattavaHenkilo.getHlo_k_oikeudet());
+							System.out.println("Muokattavan henkilön tiedot: " + muokattavaHenkilo.tiedot());
 							break;
 						case 2:
 							System.out.println("Anna henkilön uusi etunimi");
+							String muokattavanUusiEtunimi;
+							input.nextLine();
+							muokattavanUusiEtunimi = input.nextLine();
+							korvaavaHenkilo.setHlo_etunimi(muokattavanUusiEtunimi);
 							break;
 						case 3:
 							System.out.println("Anna henkilön uusi sukunimi");
+							String muokattavanUusiSukunimi;
+							input.nextLine();
+							muokattavanUusiSukunimi = input.nextLine();
+							korvaavaHenkilo.setHlo_sukunimi(muokattavanUusiSukunimi);
 							break;
 						case 4:
 							System.out.println("Anna henkilon uusi hlo_k_tunnus");
+							String muokattavanUusiHlo_k_tunnus;
+							input.nextLine();
+							muokattavanUusiHlo_k_tunnus = input.nextLine();
+							korvaavaHenkilo.setHlo_k_tunnus(muokattavanUusiHlo_k_tunnus);
 							break;
 						case 5:
 							System.out.println("Anna henkilön uusi hlo_k_salasana");
+							String muokattavanUusiHlo_k_salasana;
+							input.nextLine();
+							muokattavanUusiHlo_k_salasana = input.nextLine();
+							korvaavaHenkilo.setHlo_k_salasana(muokattavanUusiHlo_k_salasana);
 							break;
 						case 6:
 							System.out.println("Anna henkilön uusi hlo_k_oikeudet");
+							int muokattavanUusiHlo_k_oikeudet;
+							input.nextLine();
+							muokattavanUusiHlo_k_oikeudet = input.nextInt();
+							korvaavaHenkilo.setHlo_k_oikeudet(muokattavanUusiHlo_k_oikeudet);
 							break;
 						case 7:
+							System.out.println("Tallenna muutokset k/e");
+							input.nextLine();
+							String tallenna = input.nextLine();
+							System.out.println();
+							System.out.println(korvaavaHenkilo.toString());
+							if (tallenna.matches("k")){
+								henkiloDao.muokkaaHenkilo(korvaavaHenkilo);
+							}
+							else{
+							}
+							break;
+						case 8:
+							System.out.println("Poistu henkilön muokkaamisesta");
 							break;
 						}
-					}while(valinta != 7);
+					}while(valinta !=8);
+				}else{
+					System.out.println("Sinulla ei ole oikeuksia tehdä muutoksia toisiin henkilöihin.");
 				}
 				break;
 				
@@ -264,8 +313,13 @@ public class TuntikirjausHandler {
 			
 			//Kirjaudu ulos  -- Käyttäjä kirjautuu ulos.			
 			case 8:
-				System.out.println(kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + " on kirjautunut ulos.");
-				kayttaja = null;
+				if (kayttaja != null){
+					System.out.println(kayttaja.getHlo_etunimi() + " " + kayttaja.getHlo_sukunimi() + " on kirjautunut ulos.");
+					kayttaja = null;
+				}
+				else{
+					System.out.println("Ei voi kirjautua ulos. Kukaan ei ole sisäänkirjautunut käyttäjäksi.");
+				}
 				break;
 			
 			//Sulje ohjelma

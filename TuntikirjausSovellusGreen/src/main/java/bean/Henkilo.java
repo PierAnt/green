@@ -83,6 +83,13 @@ public class Henkilo {
 				+ hlo_k_salasana + ", hlo_k_oikeudet=" + hlo_k_oikeudet + "]";
 	}
 	
+	public String tiedot() {
+		return "Henkilo hlo_tunnus = " + hlo_tunnus + ", hlo_etunimi = "
+				+ hlo_etunimi + ", hlo_sukunimi = " + hlo_sukunimi
+				+ ", hlo_k_tunnus = " + hlo_k_tunnus + ", hlo_k_salasana = "
+				+ hlo_k_salasana + ", hlo_k_oikeudet = " + hlo_k_oikeudet;
+	}
+	
 
 
 

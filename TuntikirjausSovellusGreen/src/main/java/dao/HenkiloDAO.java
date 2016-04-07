@@ -9,6 +9,8 @@ public interface HenkiloDAO {
 	
 	public abstract Henkilo etsi(int hlo_tunnus);
 	
+	public abstract void muokkaaHenkilo(Henkilo korvaavaHenkilo);
+	
 	public abstract String haeHlo_k_salasana(int hlo_tunnus);
 
 	public abstract List<Henkilo> haeHenkilot();

@@ -45,6 +45,15 @@ public class HenkiloDAOSpringJdbcImpl  implements HenkiloDAO {
 		return henkilo;
 	}
 	
+	//ottaa parametrinä Henkilo olion, jota vastaavan henkilon tietoja korvaa uusilla tiedoilla. 
+	public void muokkaaHenkilo(Henkilo h){
+		String sql = "update henkilo SET hlo_etunimi = ?, hlo_sukunimi = ?, hlo_k_tunnus = ?, hlo_k_salasana = ?, hlo_k_oikeudet = ? where hlo_tunnus = ?";
+		Object[] parametrit = new Object[] { h.getHlo_etunimi(), h.getHlo_sukunimi(), h.getHlo_k_tunnus(), h.getHlo_k_salasana(), h.getHlo_k_oikeudet(), h.getHlo_tunnus()};
+		System.out.println(parametrit);
+		jdbcTemplate.update(sql, parametrit);
+		
+	}
+	
 	// !!!!! ----- !!!!! ----- !!!!! ----- !!!!! ----- !!!!! ----- !!!!! -----
 	// Rakensin super dorkasti (lue "ei ole tässä vaiheessa tarkotuskaan olla tietoturvallinen") -- Tuomas 5.4.2016
 	// Salasanan vertaamisen pitäisi tapahtua serverin puolella.
