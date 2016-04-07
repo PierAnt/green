@@ -29,8 +29,19 @@ public class TuntikirjausDAOSpringJdbcImpl implements TuntikirjausDAO {
 		jdbcTemplate.update(sql, parametrit);
 	}
 
+	public List<Tuntikirjaus> haeHenkilonKirjaukset(int hlo_tunnus) {
+		String sql = "select tuntikirjaus_id, hlo_tunnus, selite, tuntimaara, pvm from tuntikirjaus where hlo_tunnus = ?";
+		Object[] parametrit = new Object[] { hlo_tunnus };
+		RowMapper<Tuntikirjaus> mapper = new TuntikirjausRowMapper();
+
+		List<Tuntikirjaus> tk = jdbcTemplate.query(sql, parametrit, mapper);
+		return tk;
+
+	}
+
+	
 	public Tuntikirjaus etsi(int hlo_tunnus) {
-		String sql = "select tuntikirjaus_id, hlo_tunnus, hlo_selite, tuntimaara, pvm from tuntikirjaus where tuntikirjaus_id = ?";
+		String sql = "select tuntikirjaus_id, hlo_tunnus, hlo_selite, tuntimaara, pvm from tuntikirjaus where hlo_tunnus = ?";
 		Object[] parametrit = new Object[] { hlo_tunnus };
 		RowMapper<Tuntikirjaus> mapper = new TuntikirjausRowMapper();
 
@@ -56,4 +67,6 @@ public class TuntikirjausDAOSpringJdbcImpl implements TuntikirjausDAO {
 //
 //		return henkilot;
 //	}
+
 }
+
