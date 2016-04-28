@@ -9,11 +9,11 @@
 
 	<context:property-placeholder location="db_connection.properties"/>
 	
-	<bean id="henkiloDaoLuokka" class="dao.HenkiloDAOSpringJdbcImpl">
+	<bean id="henkiloDaoLuokka" class="dao.HenkiloDAO">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	
-	<bean id="tuntikirjausDaoLuokka" class="dao.TuntikirjausDAOSpringJdbcImpl">
+	<bean id="tuntikirjausDaoLuokka" class="dao.TuntikirjausDAO">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 
